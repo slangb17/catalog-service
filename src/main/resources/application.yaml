@@ -1,0 +1,8 @@
+server:
+  port: 8080
+  tomcat:
+    connection-timeout: 2s
+    keep-alive-content: 15s
+    threads:
+      max: 50
+      min-spare: 5
