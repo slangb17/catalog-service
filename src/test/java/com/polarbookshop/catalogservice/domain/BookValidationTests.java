@@ -24,14 +24,14 @@ public class BookValidationTests {
 
     @Test
     void testValidationSuccessWhenAllFieldsAreSetCorrectly() {
-        Book book = new Book("1234567890", "testTitle", "testAuthor", 10.0);
+        Book book = Book.of("1234567890", "testTitle", "testAuthor", 10.0, "Publisher");
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).isEmpty();
     }
 
     @Test
     void testThatIncorrectIsbnFailsTheValidation() {
-        Book book = new Book("INVALID_ISBN", "testTitle", "testAuthor", 10.0);
+        Book book = Book.of("INVALID_ISBN", "testTitle", "testAuthor", 10.0, "Publisher");
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage())
@@ -40,7 +40,7 @@ public class BookValidationTests {
 
     @Test
     void testThatValidationFailsIfPriceIsNegative() {
-        Book book = new Book("1234567890", "testTitle", "testAuthor", -1.0);
+        Book book = Book.of("1234567890", "testTitle", "testAuthor", -1.0, "Publisher");
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage())

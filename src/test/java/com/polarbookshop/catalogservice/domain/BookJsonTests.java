@@ -19,7 +19,7 @@ public class BookJsonTests {
     @SuppressWarnings("AssertBetweenInconvertibleTypes")
     @Test
     void testSerialize() throws Exception {
-        Book book = new Book("1234567890", "Title", "Author", 9.34);
+        Book book = Book.of("1234567890", "Title", "Author", 9.34, "Publisher");
 
         JsonContent<Book> jsonContent = json.write(book);
         assertThat(jsonContent)
@@ -30,6 +30,8 @@ public class BookJsonTests {
                 .extractingJsonPathStringValue("@.author").isEqualTo(book.author());
         assertThat(jsonContent)
                 .extractingJsonPathNumberValue("@.price").isEqualTo(book.price());
+        assertThat(jsonContent)
+                .extractingJsonPathStringValue("@.publisher").isEqualTo(book.publisher());
     }
 
     @SuppressWarnings("AssertBetweenInconvertibleTypes")
@@ -40,12 +42,13 @@ public class BookJsonTests {
             "isbn": "1234567890",
             "title": "Title",
             "author": "Author",
-            "price": 12.03
+            "price": 12.03,
+            "publisher": "Publisher"
             }
             """;
 
         assertThat(json.parse(content))
                 .usingRecursiveComparison()
-                .isEqualTo(new Book("1234567890", "Title", "Author", 12.03));
+                .isEqualTo(Book.of("1234567890", "Title", "Author", 12.03, "Publisher"));
     }
 }
