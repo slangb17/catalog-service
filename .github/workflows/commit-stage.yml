@@ -38,7 +38,7 @@ jobs:
           - name: Build, unit tests and integration tests
             run:
                 chmod +x mvnw
-                mvnw build
+                ./mvnw build
 
     package:
       name: Package and Publish
