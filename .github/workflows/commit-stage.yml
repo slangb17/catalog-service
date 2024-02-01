@@ -36,7 +36,7 @@ jobs:
             with:
                 sarif_file: ${{ steps.scan.outputs.sarif }}
           - name: Build, unit tests and integration tests
-            run:
+            run: |
                 chmod +x mvnw
                 ./mvnw build
 
@@ -59,7 +59,7 @@ jobs:
             java-version: 17
             cache: maven
         - name: Build container image
-          run:
+          run: |
             chmod +x mvnw
             ./mvnw spring-boot:build-image \
              -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
