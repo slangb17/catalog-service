@@ -18,6 +18,7 @@
 		<spring-boot-version>3.2.0</spring-boot-version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
 		<testcontainersVersion>1.17.3</testcontainersVersion>
+		<imageName>${project.artifactId}:${project.version}</imageName>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -119,6 +120,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>${imageName}</name>
+					</image>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
